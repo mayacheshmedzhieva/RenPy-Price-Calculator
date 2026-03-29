@@ -22,6 +22,7 @@
     }
 
     .container {
+      height: 320px;
       background: #111;
       color: white;
       padding: 15px;
@@ -30,10 +31,16 @@
       box-sizing: border-box;
     }
 
+    .div-row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1em;
+    }
+
     input,
     select,
     button {
-      width: 100%;
       margin-top: 5px;
       margin-bottom: 10px;
       padding: 8px;
@@ -42,6 +49,7 @@
     }
 
     button {
+      width: 100%;
       background: #c3567a;
       color: white;
       cursor: pointer;
@@ -54,20 +62,32 @@
 </head>
 
 <body>
-
   <div class="container">
     <h3>Ren'Py Project Cost Estimator</h3>
-
-    <label>Word Count:</label>
-    <input type="number" id="words" value="5000">
-
-    <label>Complexity:</label>
-    <select id="complexity">
-      <option value="0.004">Simple</option>
-      <option value="0.006">Medium</option>
-      <option value="0.009">Advanced</option>
-    </select>
-
+    <div class="div-row">
+      <div>
+        <label>Word Count:</label>
+        <input type="number" id="words" value="5000">
+      </div>
+      <div>
+        <label>Branching Density:</label>
+        <select id="branching">
+          <option value="1">Very Low (0-1 choices / 1000 words)</option>
+          <option value="2">Low (2-3 choices / 1000 words)</option>
+          <option value="3">Moderate (4-6 choices / 1000 words)</option>
+          <option value="4">High (7-10 choices / 1000 words)</option>
+          <option value="5">Very High (10+ choices / 1000 words)</option>
+        </select>
+      </div>
+      <div>
+        <label>Choices Conditions:</label>
+        <select id="conditional">
+          <option value="1">Simple (few flags)</option>
+          <option value="2">Moderate (multiple variables)</option>
+          <option value="3">Advanced (systems, heavy logic)</option>
+        </select>
+      </div>
+    </div>
     <label><input type="checkbox" id="ui"> Custom UI (+$200)</label>
     <label><input type="checkbox" id="systems"> Systems (+$500)</label>
 
@@ -79,18 +99,21 @@
   <script>
     function calculateCost() {
       var words = document.getElementById("words").value;
-      var complexity = document.getElementById("complexity").value;
+      /* var complexity = document.getElementById("complexity").value;
 
-      var cost = words * complexity;
+       var cost = words * complexity;
 
-      if (document.getElementById("ui").checked) cost += 200;
-      if (document.getElementById("systems").checked) cost += 500;
+       if (document.getElementById("ui").checked) cost += 200;
+       if (document.getElementById("systems").checked) cost += 500;
 
-      var min = Math.round(cost * 0.8);
-      var max = Math.round(cost * 1.2);
+       var min = Math.round(cost * 0.8);
+       var max = Math.round(cost * 1.2);
 
+       document.getElementById("result").innerHTML =
+         "Estimated Cost: $" + min + " - $" + max;
+     }*/
       document.getElementById("result").innerHTML =
-        "Estimated Cost: $" + min + " - $" + max;
+        "Estimated Cost: $" + words;
     }
   </script>
 
