@@ -4,20 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Ren'Py Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
 
   <style>
-    @font-face {
-      font-family: 'AnonymousPro-Italic.ttf', 'AnonymousPro-Bold.ttf', 'AnonymousPro-BoldItalic.ttf';
-      src: url('path/to/your/font-file-url');
-      font-weight: normal, bold, bold-italic;
-      font-style: normal, italic, italic;
-    }
-
     html,
     body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
       background: transparent;
       font-family: 'ANONYMOUS PRO';
     }
@@ -29,7 +25,6 @@
     }
 
     .container {
-      height: 320px;
       background: #111;
       color: white;
       padding: 15px;
@@ -65,15 +60,20 @@
     }
 
     input,
-    select {
+    select,
+    select>* {
       width: 100%;
       box-sizing: border-box;
+      font-family: 'ANONYMOUS PRO';
+      font-weight: bold;
     }
 
     button {
       width: auto;
       background: #c3567a;
       color: white;
+      font-family: 'ANONYMOUS PRO';
+      font-weight: bold;
       cursor: pointer;
     }
 
@@ -176,7 +176,7 @@
            "Estimated Cost: $" + min + " - $" + max;
        }*/
         document.getElementById("result").innerHTML =
-          "Estimated Cost: $" + words;
+          "THIS IS A TEST CODE! I@C CURRENTLY IMPLAMENTING THE CALCULATOR! Estimated Cost: $" + words;
       }
     </script>
 
