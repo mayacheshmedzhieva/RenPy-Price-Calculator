@@ -158,25 +158,48 @@
       <button onclick="calculateCost()">Estimate Cost</button>
       <span id="result"></span>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
       function calculateCost() {
-        var words = document.getElementById("words").value;
-        /* var complexity = document.getElementById("complexity").value;
-
-         var cost = words * complexity;
-
-         if (document.getElementById("ui").checked) cost += 200;
-         if (document.getElementById("systems").checked) cost += 500;
-
-         var min = Math.round(cost * 0.8);
-         var max = Math.round(cost * 1.2);
-
-         document.getElementById("result").innerHTML =
-           "Estimated Cost: $" + min + " - $" + max;
-       }*/
-        document.getElementById("result").innerHTML =
-          "THIS IS A TEST CODE! I@C CURRENTLY IMPLAMENTING THE CALCULATOR! Estimated Cost: $" + words;
+        // Get input values
+        var words = parseFloat(jQuery("#words").val());
+        var branching = parseInt(jQuery("#branching").val());
+        var conditional = parseInt(jQuery("#conditional").val());
+        var endings = parseInt(jQuery("#endings").val());
+        var ui = parseInt(jQuery("#ui_complexity").val());
+        var effects = parseInt(jQuery("#effects").val());
+        var assets = parseInt(jQuery("#assets").val());
+        var minigames = parseInt(jQuery("#minigames").val());
+        // Base rate
+        var base_rate = 0.006;
+        // Multipliers (complexity)
+        var branching_mult = [0.8, 1, 1.3, 1.7, 2.2];
+        var conditional_mult = [0.9, 1.2, 1.6];
+        var endings_mult = [0.85, 1.1, 1.3, 1.6];
+        var assets_mult = [1, 1.15, 1.3];
+        // Additive costs (features)
+        var ui_cost = [0, 150, 350, 700];
+        var effects_cost = [0, 100, 300, 600];
+        var minigame_cost = [0, 200, 600, 1200];
+        // Base cost
+        var base_cost = words * base_rate;
+        // Apply multipliers
+        var total = base_cost
+          * branching_mult[branching - 1]
+          * conditional_mult[conditional - 1]
+          * endings_mult[endings - 1]
+          * assets_mult[assets - 1];
+        // Add feature costs
+        total += ui_cost[ui];
+        total += effects_cost[effects];
+        total += minigame_cost[minigames];
+        // Safety floor (prevents underpricing)
+        total = Math.max(total, base_cost * 1.2);
+        // Range output
+        var min = Math.round(total * 0.8);
+        var max = Math.round(total * 1.2);
+        // Output result
+        jQuery("#result").html("Estimated Cost: $" + min + " - $" + max);
       }
     </script>
 
