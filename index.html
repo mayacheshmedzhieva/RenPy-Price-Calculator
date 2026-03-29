@@ -6,19 +6,26 @@
   <title>Ren'Py Calculator</title>
 
   <style>
+    @font-face {
+      font-family: 'AnonymousPro-Italic.ttf', 'AnonymousPro-Bold.ttf', 'AnonymousPro-BoldItalic.ttf';
+      src: url('path/to/your/font-file-url');
+      font-weight: normal, bold, bold-italic;
+      font-style: normal, italic, italic;
+    }
+
     html,
     body {
       margin: 0;
       padding: 0;
       overflow: hidden;
       background: transparent;
-      font-family: Arial, sans-serif;
+      font-family: 'ANONYMOUS PRO';
     }
 
     body {
       margin: 0;
       background: transparent;
-      font-family: Arial, sans-serif;
+      font-family: 'ANONYMOUS PRO';
     }
 
     .container {
@@ -32,10 +39,19 @@
     }
 
     .div-row {
+      width: 100%;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      gap: 1em;
+      column-gap: 3em;
+      row-gap: 0.5em;
+      align-items: center;
+    }
+
+    .div-row>div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     input,
@@ -48,8 +64,14 @@
       border: none;
     }
 
-    button {
+    input,
+    select {
       width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: auto;
       background: #c3567a;
       color: white;
       cursor: pointer;
@@ -63,7 +85,6 @@
 
 <body>
   <div class="container">
-    <h3>Ren'Py Project Cost Estimator</h3>
     <div class="div-row">
       <div>
         <label>Word Count:</label>
@@ -87,35 +108,77 @@
           <option value="3">Advanced (systems, heavy logic)</option>
         </select>
       </div>
+      <div>
+        <label>Endings:</label>
+        <select id="endings">
+          <option value="1">1 (linear story)</option>
+          <option value="2">2-3 (few alternate endings)</option>
+          <option value="3">4-6 (multiple routes/endings)</option>
+          <option value="4">7+ (many branching outcomes)</option>
+        </select>
+      </div>
     </div>
-    <label><input type="checkbox" id="ui"> Custom UI (+$200)</label>
-    <label><input type="checkbox" id="systems"> Systems (+$500)</label>
+    <div class="div-row">
+      <div>
+        <label>UI Complexity:</label>
+        <select id="ui_complexity">
+          <option value="0">Default (standard Ren'Py UI)</option>
+          <option value="1">Light (small changes, colors, layout tweaks)</option>
+          <option value="2">Custom Screens (new menus, modified UI)</option>
+          <option value="3">Fully Custom (unique UI, heavily redesigned)</option>
+        </select>
+      </div>
+      <div>
+        <label>Visual Effects:</label>
+        <select id="effects">
+          <option value="1">Basic (fades, transitions)</option>
+          <option value="2">Custom (animated effects, shaders)</option>
+          <option value="3">Advanced (complex animated systems)</option>
+        </select>
+      </div>
+      <div>
+        <label>Asset Content:</label>
+        <select id="assets">
+          <option value="1">Low (1-2 characters, few backgrounds)</option>
+          <option value="2">Medium (several characters, multiple scenes)</option>
+          <option value="3">High (many characters, CGs, variations)</option>
+        </select>
+      </div>
+      <div>
+        <label>Minigames:</label>
+        <select id="minigames">
+          <option value="0">None</option>
+          <option value="1">1 (simple interaction)</option>
+          <option value="2">2-3 (multiple small minigames)</option>
+          <option value="3">4+ (many or complex minigames)</option>
+        </select>
+      </div>
+    </div>
+    <div class="div-row">
+      <button onclick="calculateCost()">Estimate Cost</button>
+      <span id="result"></span>
+    </div>
 
-    <button onclick="calculateCost()">Estimate Cost</button>
+    <script>
+      function calculateCost() {
+        var words = document.getElementById("words").value;
+        /* var complexity = document.getElementById("complexity").value;
 
-    <p id="result"></p>
-  </div>
+         var cost = words * complexity;
 
-  <script>
-    function calculateCost() {
-      var words = document.getElementById("words").value;
-      /* var complexity = document.getElementById("complexity").value;
+         if (document.getElementById("ui").checked) cost += 200;
+         if (document.getElementById("systems").checked) cost += 500;
 
-       var cost = words * complexity;
+         var min = Math.round(cost * 0.8);
+         var max = Math.round(cost * 1.2);
 
-       if (document.getElementById("ui").checked) cost += 200;
-       if (document.getElementById("systems").checked) cost += 500;
-
-       var min = Math.round(cost * 0.8);
-       var max = Math.round(cost * 1.2);
-
-       document.getElementById("result").innerHTML =
-         "Estimated Cost: $" + min + " - $" + max;
-     }*/
-      document.getElementById("result").innerHTML =
-        "Estimated Cost: $" + words;
-    }
-  </script>
+         document.getElementById("result").innerHTML =
+           "Estimated Cost: $" + min + " - $" + max;
+       }*/
+        document.getElementById("result").innerHTML =
+          "Estimated Cost: $" + words;
+      }
+    </script>
 
 </body>
 
