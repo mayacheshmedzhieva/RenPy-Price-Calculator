@@ -112,16 +112,17 @@
       <div>
         <label>Branching Density:</label>
         <select id="branching">
-          <option value="1">Very Low (0-1 choices / 1000 words)</option>
-          <option value="2">Low (2-3 choices / 1000 words)</option>
-          <option value="3">Moderate (4-6 choices / 1000 words)</option>
-          <option value="4">High (7-10 choices / 1000 words)</option>
-          <option value="5">Very High (10+ choices / 1000 words)</option>
+          <option value="0">Very Low (0-1 choices / 1000 words)</option>
+          <option value="1">Low (2-3 choices / 1000 words)</option>
+          <option value="2">Moderate (4-6 choices / 1000 words)</option>
+          <option value="3">High (7-10 choices / 1000 words)</option>
+          <option value="4">Very High (10+ choices / 1000 words)</option>
         </select>
       </div>
       <div>
         <label>Choices Conditions:</label>
         <select id="conditional">
+          <option value="0">Very Simple (no conditions)</option>
           <option value="1">Simple (few flags)</option>
           <option value="2">Moderate (multiple variables)</option>
           <option value="3">Advanced (systems, heavy logic)</option>
@@ -130,10 +131,10 @@
       <div>
         <label>Endings:</label>
         <select id="endings">
-          <option value="1">1 (linear story)</option>
-          <option value="2">2-3 (few alternate endings)</option>
-          <option value="3">4-6 (multiple routes/endings)</option>
-          <option value="4">7+ (many branching outcomes)</option>
+          <option value="0">1 (linear story)</option>
+          <option value="1">2-3 (few alternate endings)</option>
+          <option value="2">4-6 (multiple routes/endings)</option>
+          <option value="3">7+ (many branching outcomes)</option>
         </select>
       </div>
     </div>
@@ -150,6 +151,7 @@
       <div>
         <label>Visual Effects:</label>
         <select id="effects">
+          <option value="0">None</option>
           <option value="1">Basic (fades, transitions)</option>
           <option value="2">Custom (animated effects, shaders)</option>
           <option value="3">Advanced (complex animated systems)</option>
@@ -158,9 +160,9 @@
       <div>
         <label>Asset Content:</label>
         <select id="assets">
-          <option value="1">Low (1-2 characters, few backgrounds)</option>
-          <option value="2">Medium (several characters, multiple scenes)</option>
-          <option value="3">High (many characters, CGs, variations)</option>
+          <option value="0">Low (1-2 characters, few backgrounds)</option>
+          <option value="1">Medium (several characters, multiple scenes)</option>
+          <option value="2">High (many characters, CGs, variations)</option>
         </select>
       </div>
       <div>
@@ -203,7 +205,7 @@
         var base_rate = 0.006;
         // Multipliers (complexity)
         var branching_mult = [0.8, 1, 1.3, 1.7, 2.2];
-        var conditional_mult = [0.9, 1.2, 1.6];
+        var conditional_mult = [1, 1.2, 1.4, 1.7];
         var endings_mult = [0.85, 1.2, 1.4, 1.7];
         var assets_mult = [1, 1.15, 1.3];
         // Additive costs (features)
@@ -214,10 +216,10 @@
         var base_cost = words * base_rate;
         // Apply multipliers
         var total = base_cost
-          * branching_mult[branching - 1]
-          * conditional_mult[conditional - 1]
-          * endings_mult[endings - 1]
-          * assets_mult[assets - 1];
+          * branching_mult[branching]
+          * conditional_mult[conditional]
+          * endings_mult[endings]
+          * assets_mult[assets];
         // Add feature costs
         total += ui_cost[ui];
         total += effects_cost[effects];
