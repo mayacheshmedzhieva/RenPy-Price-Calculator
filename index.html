@@ -204,9 +204,9 @@
         // Base rate
         var base_rate = 0.006;
         // Multipliers (complexity)
-        var branching_mult = [0.8, 1, 1.3, 1.7, 2.2];
+        var branching_mult = [0.9, 1.1, 1.4, 1.7, 2.2];
         var conditional_mult = [1, 1.2, 1.4, 1.7];
-        var endings_mult = [0.85, 1.2, 1.4, 1.7];
+        var endings_mult = [0.9, 1.2, 1.4, 1.7];
         var assets_mult = [1, 1.15, 1.3];
         // Additive costs (features)
         var ui_cost = [0, 150, 350, 700];
@@ -225,7 +225,7 @@
         total += effects_cost[effects];
         total += minigame_cost[minigames];
         // Safety floor (prevents underpricing)
-        total = Math.max(total, base_cost * 1.2);
+        total = Math.max(total, base_cost * 1.4);
         // Range output
         var min = Math.round(total * 0.8);
         var max = Math.round(total * 1.2);
