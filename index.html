@@ -9,6 +9,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap"
     rel="stylesheet">
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-51BFQQQ8ND"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-51BFQQQ8ND');
+  </script>
+
   <style>
     html,
     body {
@@ -209,6 +218,19 @@
         // Output result
         jQuery("#result").html("Estimated Cost: $" + min + " - $" + max);
         jQuery("#result").show();
+
+        gtag('event', 'calculate_cost', {
+          words: words,
+          branching: branching,
+          conditional: conditional,
+          endings: endings,
+          ui: ui,
+          effects: effects,
+          assets: assets,
+          minigames: minigames,
+          estimated_min: min,
+          estimated_max: max
+        });
       }
     </script>
 
