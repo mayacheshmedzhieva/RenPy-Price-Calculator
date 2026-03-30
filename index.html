@@ -85,6 +85,10 @@
     button:hover {
       opacity: 0.9;
     }
+
+    #result {
+      display: none;
+    }
   </style>
 </head>
 
@@ -160,8 +164,8 @@
       </div>
     </div>
     <div class="div-row">
-      <button onclick="calculateCost()">Estimate Cost</button>
       <span id="result"></span>
+      <button onclick="calculateCost()">Estimate Cost</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
@@ -205,6 +209,7 @@
         var max = Math.round(total * 1.2);
         // Output result
         jQuery("#result").html("Estimated Cost: $" + min + " - $" + max);
+        jQuery("#result").show();
       }
     </script>
 
