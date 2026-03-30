@@ -177,9 +177,19 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
+      function getSessionId() {
+        var sessionId = localStorage.getItem("vn_calc_session");
+
+        if (!sessionId) {
+          sessionId = Date.now() + "_" + Math.random().toString(36).substring(2, 11);
+          localStorage.setItem("vn_calc_session", sessionId);
+        }
+
+        return sessionId;
+      }
       function calculateCost() {
         // Get input values
-        var words = parseFloat(jQuery("#words").val());
+        var words = parseFloat(jQuery("#words").val()) || 0;
         var branching = parseInt(jQuery("#branching").val());
         var conditional = parseInt(jQuery("#conditional").val());
         var endings = parseInt(jQuery("#endings").val());
@@ -219,19 +229,54 @@
         jQuery("#result").html("Estimated Cost: $" + min + " - $" + max);
         jQuery("#result").show();
 
-        gtag('event', 'calculate_cost', {
-          words: words,
-          branching: branching,
-          conditional: conditional,
-          endings: endings,
-          ui: ui,
-          effects: effects,
-          assets: assets,
-          minigames: minigames,
-          estimated_min: min,
-          estimated_max: max
-        });
+        if (typeof gtag === "function") {
+          gtag('event', 'calculate_cost', {
+            words: words,
+            branching: branching,
+            conditional: conditional,
+            endings: endings,
+            ui: ui,
+            effects: effects,
+            assets: assets,
+            minigames: minigames,
+            estimated_min: min,
+            estimated_max: max
+          });
+        }
+        setTimeout(function () {
+          jQuery.ajax({
+            url: "https://script.google.com/macros/s/AKfycbxtPdMGag9PuHu8IG77ZVamoo7HpIzcYTDfbOGfSwWpBddPzLC3ChYvOTPUJsHkyvOcdQ/exec",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+              words: words,
+              branching: branching,
+              conditional: conditional,
+              endings: endings,
+              ui: ui,
+              effects: effects,
+              assets: assets,
+              minigames: minigames,
+              min: min,
+              max: max,
+              // USER CONTEXT
+              userAgent: navigator.userAgent,
+              sessionId: getSessionId(),
+              language: navigator.language,
+              screenWidth: window.screen.width,
+              screenHeight: window.screen.height,
+              isMobile: /Mobi|Android/i.test(navigator.userAgent)
+            }),
+            success: function () {
+              console.log("Saved to Sheets");
+            },
+            error: function (err) {
+              console.error("Sheets error:", err);
+            }
+          });
+        }, 200);
       }
+
     </script>
 
 </body>
