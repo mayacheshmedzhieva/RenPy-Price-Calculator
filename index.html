@@ -247,8 +247,7 @@
           jQuery.ajax({
             url: "https://script.google.com/macros/s/AKfycbxtPdMGag9PuHu8IG77ZVamoo7HpIzcYTDfbOGfSwWpBddPzLC3ChYvOTPUJsHkyvOcdQ/exec",
             method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({
+            data: {
               words: words,
               branching: branching,
               conditional: conditional,
@@ -259,14 +258,13 @@
               minigames: minigames,
               min: min,
               max: max,
-              // USER CONTEXT
               userAgent: navigator.userAgent,
               sessionId: getSessionId(),
               language: navigator.language,
               screenWidth: window.screen.width,
               screenHeight: window.screen.height,
               isMobile: /Mobi|Android/i.test(navigator.userAgent)
-            }),
+            },
             success: function () {
               console.log("Saved to Sheets");
             },
